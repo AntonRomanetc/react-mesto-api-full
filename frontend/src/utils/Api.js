@@ -1,0 +1,149 @@
+class Api {
+  constructor() {
+    //this.baseUrl = "https://api.mesto.antonyromanetc.nomoredomainsclub.ru";
+    this.baseUrl = "http://localhost:3000";
+  }
+ 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+
+    return Promise.reject(`Ошибка: ${res.status}`);
+  }
+
+  getInitialCards() {
+    return fetch(`${this.baseUrl}/cards`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  getUserInfo() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  setUserInfo(user) {
+    return fetch(`${this.baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: user.name,
+        about: user.about,
+      }),
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  setAvatar(avatar) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        avatar: avatar,
+      }),
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  setNewCard(card) {
+    return fetch(`${this.baseUrl}/cards`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: card.name,
+        link: card.link,
+      }),
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  deleteCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  changeLikeCardStatus(cardId, notLiked) {
+    if (notLiked) {
+      return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }).then(this._checkResponse);
+    } else {
+      return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }).then(this._checkResponse);
+    }
+  }
+
+  register( name, about, avatar, email, password ) {
+    return fetch(`${this.baseUrl}/signup`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, about, avatar, email, password }),
+    }).then(this._checkResponse);
+  }
+
+  authorize(password, email) {
+    return fetch(`${this.baseUrl}/signin`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+      body: JSON.stringify({ password, email }),
+    }).then(this._checkResponse);
+  }
+
+  getEmail() {
+    return fetch(`${this.baseUrl}/users/me`, {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+
+  exit() {
+    return fetch(`${this.baseUrl}/users/signout`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      credentials: "include",
+    }).then(this._checkResponse);
+  }
+}
+
+export const api = new Api();
