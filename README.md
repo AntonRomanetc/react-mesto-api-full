@@ -8,3 +8,4 @@
 * [Frontend](mesto.antonyromanetc.nomoredomainsclub.ru)
 * [Backend](api.mesto.antonyromanetc.nomoredomainsclub.ru)
 * [Ссылка на проект GitHub](https://github.com/AntonRomanetc/react-mesto-api-full.git)
+* [Ссылка на сайт](https://mesto.antonyromanetc.nomoredomainsclub.ru)
