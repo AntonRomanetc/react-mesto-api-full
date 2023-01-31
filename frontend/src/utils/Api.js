@@ -1,7 +1,7 @@
 class Api {
   constructor() {
-    //this.baseUrl = "https://api.mesto.antonyromanetc.nomoredomainsclub.ru";
-    this.baseUrl = "http://localhost:3000";
+    this.baseUrl = "https://api.mesto.antonyromanetc.nomoredomainsclub.ru";
+    //this.baseUrl = "http://localhost:3000";
   }
  
   _checkResponse(res) {
