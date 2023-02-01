@@ -1,7 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 
 const { URL_REGEX } = require('../../config/config');
-const { isIdValid } = require('../../helpers/isIdValid');
 
 const nameAndAboutValidationRequirements = Joi.string().min(2).max(30);
 const avatarValidationRequirements = Joi.string().regex(URL_REGEX);
@@ -15,31 +14,31 @@ module.exports.validateUserRegData = celebrate({
     avatar: avatarValidationRequirements,
     email: emailValidationRequirements,
     password: passwordValidationRequirements,
-  }).unknown(true),
+  }),
 });
 
 module.exports.validateUserAuthData = celebrate({
   body: Joi.object().keys({
     email: emailValidationRequirements,
     password: passwordValidationRequirements,
-  }).unknown(true),
+  }),
 });
 
 module.exports.validateUserId = celebrate({
   params: Joi.object().keys({
-    userId: isIdValid,
-  }).unknown(true),
+    userId: Joi.string().required(),
+  }),
 });
 
 module.exports.validateUserInfo = celebrate({
   body: Joi.object().keys({
-    name: nameAndAboutValidationRequirements,
-    about: nameAndAboutValidationRequirements,
-  }).unknown(true),
+    name: Joi.string().required(),
+    about: Joi.string().required(),
+  }),
 });
 
 module.exports.validateUserAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: avatarValidationRequirements,
-  }).unknown(true),
+    avatar: Joi.string().required(),
+  }),
 });

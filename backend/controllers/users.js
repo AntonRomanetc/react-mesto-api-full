@@ -71,14 +71,9 @@ module.exports.login = (req, res, next) => {
 };
 
 module.exports.exit = (req, res, next) => {
-  User.findById(req.user._id)
-    .orFail(() => {
-      throw new NotFoundError('Запрашиваемый пользователь не найден');
-    })
-    .then(() => {
-      res.clearCookie('jwt').send({ message: 'Вы покинули сайт' });
-    })
-    .catch(next);
+  res.clearCookie('jwt');
+  res.status(OK).send({ message: 'Вы покинули сайт' });
+  next();
 };
 
 module.exports.getUsers = (req, res, next) => {
