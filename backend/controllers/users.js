@@ -73,7 +73,6 @@ module.exports.login = (req, res, next) => {
 module.exports.exit = (req, res, next) => {
   res.clearCookie('jwt');
   res.status(OK).send({ message: 'Вы покинули сайт' });
-  next();
 };
 
 module.exports.getUsers = (req, res, next) => {
