@@ -2,10 +2,11 @@ const { celebrate, Joi } = require('celebrate');
 
 const { URL_REGEX } = require('../../config/config');
 
-const nameAndAboutValidationRequirements = Joi.string().min(2).max(30);
-const avatarValidationRequirements = Joi.string().regex(URL_REGEX);
+const nameAndAboutValidationRequirements = Joi.string().required().min(2).max(30);
+const avatarValidationRequirements = Joi.string().required().regex(URL_REGEX);
 const emailValidationRequirements = Joi.string().required().email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'ru'] } });
 const passwordValidationRequirements = Joi.string().required();
+const idValidationRequirements = Joi.string().required().length(24).hex();
 
 module.exports.validateUserRegData = celebrate({
   body: Joi.object().keys({
@@ -26,19 +27,19 @@ module.exports.validateUserAuthData = celebrate({
 
 module.exports.validateUserId = celebrate({
   params: Joi.object().keys({
-    userId: Joi.string().required(),
+    userId: idValidationRequirements,
   }),
 });
 
 module.exports.validateUserInfo = celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required(),
-    about: Joi.string().required(),
+    name: nameAndAboutValidationRequirements,
+    about: nameAndAboutValidationRequirements,
   }),
 });
 
 module.exports.validateUserAvatar = celebrate({
   body: Joi.object().keys({
-    avatar: Joi.string().required(),
+    avatar: avatarValidationRequirements,
   }),
 });
