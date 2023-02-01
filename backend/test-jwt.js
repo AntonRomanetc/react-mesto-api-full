@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 
-const YOUR_JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2M2Q5OTg2YWRiMTdiNTQ2NjdhODI2YjgiLCJpYXQiOjE2NzUyMDQ3MjksImV4cCI6MTY3NTgwOTUyOX0.DFZnVj16K741okOzaLFD4jqcsaN65h4oIlgxJMIkohw';
+const YOUR_JWT = 'e8c772b374177571180cb4f0c007ee77e6c2634b782e6c7eb13a5036e3e9ff33';
 const SECRET_KEY_DEV = 'some-secret-key';
 
 module.exports.testJwt = (next) => {
